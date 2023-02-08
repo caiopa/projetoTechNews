@@ -1,6 +1,7 @@
 import requests
 import time
 from requests.exceptions import ConnectTimeout, HTTPError, ReadTimeout
+from parsel import Selector
 
 
 fake_headers = {"user-agent": "Fake user-agent"}
@@ -17,10 +18,11 @@ def fetch(url: str):
 
     return res.text
 
-
+# article class entry-preview post
 # Requisito 2
 def scrape_updates(html_content):
-    """Seu código deve vir aqui"""
+    selec = Selector(html_content)
+    return selec.css("h2 > a ::attr(href)").getall()
 
 
 # Requisito 3
