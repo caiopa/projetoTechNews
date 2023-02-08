@@ -2,11 +2,15 @@ import requests
 import time
 from requests.exceptions import ConnectTimeout, HTTPError, ReadTimeout
 
+
+fake_headers = {"user-agent": "Fake user-agent"}
+
+
 # Requisito 1
 def fetch(url: str):
     time.sleep(1)
     try:
-        res = requests.get(url, headers={ "user-agent": "Fake user-agent" }, timeout=3)
+        res = requests.get(url, headers=fake_headers, timeout=3)
         res.raise_for_status()
     except (ConnectTimeout, HTTPError, ReadTimeout):
         return None
